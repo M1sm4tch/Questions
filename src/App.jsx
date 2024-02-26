@@ -7,6 +7,8 @@ import CreateQuestion from './pages/CreateQuestion';
 import UpdateQuestion from './pages/UpdateQuestion';
 import DeleteQuestion from './pages/DeleteQuestion';
 import "./index.css"
+import Login from './pages/Login';
+import { isAuthenticated, logoutUser } from './services/api';
 
 const App = () => {
   return (
@@ -27,8 +29,20 @@ const App = () => {
               <Link to="/update-question">Update Question</Link>
             </li>
             <li>
-              <Link to="/delete-question">Delete Question</Link>
-            </li>
+                <Link to="/delete-question">Delete Question</Link>
+              </li>
+            {
+              isAuthenticated() ?
+                <li>
+                  <button onClick={logoutUser}>Log Out</button>
+                </li>
+              : 
+              (
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+              )
+            }
           </ul>
         </nav>
 
@@ -37,6 +51,7 @@ const App = () => {
           <Route path="/create-question" element={<CreateQuestion />} />
           <Route path="/update-question" element={<UpdateQuestion />} />
           <Route path="/delete-question" element={<DeleteQuestion />} />
+          <Route path="/login" element={<Login />}/>
           <Route path="/" element={<Home />} />
         </Routes>
       </div>
